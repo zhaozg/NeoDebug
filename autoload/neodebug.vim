@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoDebug - NeoDebug 
+" NeoDebug - NeoDebug
 " Console
 " Locals / Registers
 " StackFrame / Threads
@@ -10,23 +10,23 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
 let s:help_open = 1
 let s:help_text_short = [
-			\ '" Press ? for help',
-			\ ]
+                        \ '" Press ? for help',
+                        \ ]
 
 let s:help_text = s:help_text_short
 
-" \ '<C-F9> 	- toggle enable/disable breakpoint on current line',
+" \ '<C-F9>         - toggle enable/disable breakpoint on current line',
 function s:UpdateHelpText()
     if s:help_open
         let s:help_text = [
-            \ g:neodbg_keymap_continue.' 	 - run or continue (c)',
-            \ g:neodbg_keymap_stop_debugging.' 	 - stop debugging (kill)',
-            \ g:neodbg_keymap_toggle_console_win.' 	 - toggle console window',
-            \ g:neodbg_keymap_next.' 	 - next',
-            \ g:neodbg_keymap_step_into.'	 - step into',
+            \ g:neodbg_keymap_continue.'          - run or continue (c)',
+            \ g:neodbg_keymap_stop_debugging.'          - stop debugging (kill)',
+            \ g:neodbg_keymap_toggle_console_win.'          - toggle console window',
+            \ g:neodbg_keymap_next.'          - next',
+            \ g:neodbg_keymap_step_into.'         - step into',
             \ g:neodbg_keymap_step_out.'  - step out (finish)',
-            \ g:neodbg_keymap_run_to_cursor.'	 - run to cursor (tb and c)',
-            \ g:neodbg_keymap_toggle_breakpoint.' 	 - toggle breakpoint on current line',
+            \ g:neodbg_keymap_run_to_cursor.'         - run to cursor (tb and c)',
+            \ g:neodbg_keymap_toggle_breakpoint.'          - toggle breakpoint on current line',
             \ g:neodbg_keymap_jump.' - set next statement (tb and jump)',
             \ g:neodbg_keymap_print_variable.'     - view variable under the cursor (.p)',
             \ '<TAB>     - trigger complete ',
@@ -166,34 +166,34 @@ function! neodebug#CustomConsoleKey()
     noremap <buffer> <silent> A :call <SID>NeoDebugKeyA()<cr>
     noremap <buffer> <silent> o :call <SID>NeoDebugKeyo()<cr>
     noremap <buffer> <silent> O :call <SID>NeoDebugKeyo()<cr>
-    noremap <expr><buffer>x  <SID>IsModifiablex() ? "x" : ""  
-    noremap <expr><buffer>X  <SID>IsModifiableX() ? "X" : ""  
+    noremap <expr><buffer>x  <SID>IsModifiablex() ? "x" : ""
+    noremap <expr><buffer>X  <SID>IsModifiableX() ? "X" : ""
     vnoremap <buffer>x ""
 
-    noremap <expr><buffer>d  <SID>IsModifiablex() ? "d" : ""  
-    noremap <expr><buffer>u  <SID>IsModifiablex() ? "u" : ""  
-    noremap <expr><buffer>U  <SID>IsModifiablex() ? "U" : ""  
+    noremap <expr><buffer>d  <SID>IsModifiablex() ? "d" : ""
+    noremap <expr><buffer>u  <SID>IsModifiablex() ? "u" : ""
+    noremap <expr><buffer>U  <SID>IsModifiablex() ? "U" : ""
 
-    noremap <expr><buffer>s  <SID>IsModifiablex() ? "s" : ""  
+    noremap <expr><buffer>s  <SID>IsModifiablex() ? "s" : ""
     noremap <buffer> <silent> S :call <SID>NeoDebugKeyS()<cr>
 
-    noremap <expr><buffer>c  <SID>IsModifiablex() ? "c" : ""  
-    noremap <expr><buffer>C  <SID>IsModifiablex() ? "C" : ""  
+    noremap <expr><buffer>c  <SID>IsModifiablex() ? "c" : ""
+    noremap <expr><buffer>C  <SID>IsModifiablex() ? "C" : ""
 
-    noremap <expr><buffer>p  <SID>IsModifiable() ? "p" : ""  
-    noremap <expr><buffer>P  <SID>IsModifiablex() ? "P" : ""  
+    noremap <expr><buffer>p  <SID>IsModifiable() ? "p" : ""
+    noremap <expr><buffer>P  <SID>IsModifiablex() ? "P" : ""
 
 
-    inoremap <expr><buffer><Del>        <SID>IsModifiablex() ? "<Del>"    : ""  
-    noremap <expr><buffer><Del>         <SID>IsModifiablex() ? "<Del>"    : ""  
-    noremap <expr><buffer><Insert>      <SID>IsModifiableX() ? "<Insert>" : ""  
+    inoremap <expr><buffer><Del>        <SID>IsModifiablex() ? "<Del>"    : ""
+    noremap <expr><buffer><Del>         <SID>IsModifiablex() ? "<Del>"    : ""
+    noremap <expr><buffer><Insert>      <SID>IsModifiableX() ? "<Insert>" : ""
 
-    inoremap <expr><buffer><Left>       <SID>IsModifiableX() ? "<Left>"   : ""  
-    noremap <expr><buffer><Left>        <SID>IsModifiableX() ? "<Left>"   : ""  
-    inoremap <expr><buffer><Right>      <SID>IsModifiablex() ? "<Right>"  : ""  
-    noremap <expr><buffer><Right>       <SID>IsModifiablex() ? "<Right>"  : ""  
+    inoremap <expr><buffer><Left>       <SID>IsModifiableX() ? "<Left>"   : ""
+    noremap <expr><buffer><Left>        <SID>IsModifiableX() ? "<Left>"   : ""
+    inoremap <expr><buffer><Right>      <SID>IsModifiablex() ? "<Right>"  : ""
+    noremap <expr><buffer><Right>       <SID>IsModifiablex() ? "<Right>"  : ""
 
-    inoremap <expr><buffer><Home>       "" 
+    inoremap <expr><buffer><Home>       ""
     inoremap <expr><buffer><End>        ""
     inoremap <expr><buffer><Up>         ""
     inoremap <expr><buffer><Down>       ""
@@ -208,7 +208,7 @@ function! neodebug#CustomConsoleKey()
 endfunction
 
 function! s:IsModifiable()
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     if  curline == line("$") && strpart(g:neodbg_prompt, 0, 5) == strpart(getline("."), 0, 5) && col(".") >= strlen(g:neodbg_prompt)
         return 1
@@ -218,7 +218,7 @@ function! s:IsModifiable()
 endfunction
 
 function! s:IsModifiablex()
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     if  curline == line("$") && strpart(g:neodbg_prompt, 0, 5) == strpart(getline("."), 0, 5) && col(".") >= strlen(g:neodbg_prompt)+1
                 \ || (curline == line("$") && ' >' == strpart(getline("."), 0, 2) && col(".") >= strlen(' >')+1)
@@ -228,7 +228,7 @@ function! s:IsModifiablex()
     endif
 endfunction
 function! s:IsModifiableX()
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     if  (curline == line("$") && strpart(g:neodbg_prompt, 0, 5) == strpart(getline("."), 0, 5) && col(".") >= strlen(g:neodbg_prompt)+2)
                 \ || (curline == line("$") && ' >' == strpart(getline("."), 0, 2) && col(".") >= strlen(' >')+2)
@@ -238,7 +238,7 @@ function! s:IsModifiableX()
     endif
 endfunction
 function! s:NeoDebugKeyi()
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     let curcol = pos[2]
     if curline == line("$")
@@ -253,7 +253,7 @@ function! s:NeoDebugKeyi()
 endfunction
 
 function! s:NeoDebugKeyI()
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     let curcol = pos[2]
     if curline == line("$")
@@ -267,7 +267,7 @@ endfunction
 
 function! s:NeoDebugKeya()
     let linecon = getline("$")
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     let curcol = pos[2]
     if curline == line("$")
@@ -277,7 +277,7 @@ function! s:NeoDebugKeya()
             else
                 let pos[2] = pos[2]+1
                 call setpos(".", pos)
-                if pos[2] == col("$") 
+                if pos[2] == col("$")
                     starti!
                 else
                     starti
@@ -292,7 +292,7 @@ function! s:NeoDebugKeya()
 endfunction
 
 function! s:NeoDebugKeyA()
-    let pos = getpos(".")  
+    let pos = getpos(".")
     let curline = pos[1]
     let curcol = pos[2]
     if curline == line("$")
@@ -1613,7 +1613,7 @@ endfunction
 
 function! neodebug#SetWindowSytaxHilight()
 
-    hi NeoDbgBreakPoint    guibg=darkblue  ctermbg=darkblue term=reverse 
+    hi NeoDbgBreakPoint    guibg=darkblue  ctermbg=darkblue term=reverse
     hi NeoDbgDisabledBreak guibg=lightblue guifg=black ctermbg=lightblue ctermfg=black
     hi NeoDbgPC            guibg=Orange    guifg=black gui=bold ctermbg=Yellow ctermfg=black
 
@@ -1632,12 +1632,12 @@ function! neodebug#SetWindowSytaxHilight()
     hi def link NeoDebugFrame LineNr
     hi def link NeoDebugCmd Macro
     " syntax
-    syn keyword NeoDebugKey Function Breakpoint Catchpoint 
+    syn keyword NeoDebugKey Function Breakpoint Catchpoint
     syn match NeoDebugFrame /\v^#\d+ .*/ contains=NeoDebugGoto
     syn match NeoDebugGoto /\v<at [^()]+:\d+|file .+, line \d+/
     syn match NeoDebugCmd /^(gdb).*/
     syn match NeoDebugPtr /\v(^|\s+)\zs\$?\w+ \=.{-0,} 0x\w+/
-    " highlight the whole line for 
+    " highlight the whole line for
     " returns for info threads | info break | finish | watchpoint
     syn match NeoDebugHiLn /\v^\s*(Id\s+Target Id|Num\s+Type|Value returned is|(Old|New) value =|Hardware watchpoint).*$/
     syn match NeoDebugHiLn /Dump of assembler code for function main:$/
@@ -1645,7 +1645,7 @@ function! neodebug#SetWindowSytaxHilight()
 
     " syntax for perldb
     syn match NeoDebugCmd /^\s*DB<.*/
-    "	syn match NeoDebugFrame /\v^#\d+ .*/ contains=NeoDebugGoto
+    "        syn match NeoDebugFrame /\v^#\d+ .*/ contains=NeoDebugGoto
     syn match NeoDebugGoto /\v from file ['`].+' line \d+/
     syn match NeoDebugGoto /\v at ([^ ]+) line (\d+)/
     syn match NeoDebugGoto /\v at \(eval \d+\)..[^:]+:\d+/
@@ -1708,7 +1708,7 @@ endfunction
 
 function! neodebug#DeleteShotcut()
     nunmap K
-    
+
     exec printf("unmap %s", g:neodbg_keymap_toggle_breakpoint)
     exec printf("unmap %s", g:neodbg_keymap_jump)
     exec printf("unmap %s", g:neodbg_keymap_run_to_cursor)
@@ -1721,26 +1721,26 @@ function! neodebug#DeleteShotcut()
 endfunction
 
 function! neodebug#InstallMenu()
-    exec printf("amenu NeoDebug.Run/Continue<tab>%s 					:NeoDebug c<CR>", g:neodbg_keymap_continue)
-    exec printf("amenu NeoDebug.Step\\ Into<tab>%s					:NeoDebug s<CR>", g:neodbg_keymap_step_into)
-    exec printf("amenu NeoDebug.Next<tab>%s							:NeoDebug n<CR>", g:neodbg_keymap_next)
-    exec printf("amenu NeoDebug.Step\\ out<tab>%s				:NeoDebug finish<CR>", g:neodbg_keymap_step_out)
-    exec printf("amenu NeoDebug.Run\\ to\\ cursor<tab>%s			:call NeoDebugRunToCursor()<CR>", g:neodbg_keymap_run_to_cursor)
-    exec printf("amenu NeoDebug.Stop\\ debugging\\ (Kill)<tab>%s	:NeoDebug k<CR>", g:neodbg_keymap_stop_debugging)
-    exec printf("amenu NeoDebug.-sep1- :")
+    exec printf("amenu NeoDebug.Run/Continue<tab>%s                    :NeoDebug c<CR>", g:neodbg_keymap_continue)
+    exec printf("amenu NeoDebug.Step\\ Into<tab>%s                     :NeoDebug s<CR>", g:neodbg_keymap_step_into)
+    exec printf("amenu NeoDebug.Next<tab>%s                            :NeoDebug n<CR>", g:neodbg_keymap_next)
+    exec printf("amenu NeoDebug.Step\\ out<tab>%s                      :NeoDebug finish<CR>", g:neodbg_keymap_step_out)
+    exec printf("amenu NeoDebug.Run\\ to\\ cursor<tab>%s               :call NeoDebugRunToCursor()<CR>", g:neodbg_keymap_run_to_cursor)
+    exec printf("amenu NeoDebug.Stop\\ debugging\\ (Kill)<tab>%s       :NeoDebug k<CR>", g:neodbg_keymap_stop_debugging)
+    exec printf("amenu NeoDebug.-sep1-%s :", "")
 
-    exec printf("amenu NeoDebug.Show\\ callstack				:call NeoDebug('where')<CR>")
-    exec printf("amenu NeoDebug.Set\\ next\\ statement\\ (Jump)<tab>%s 	:call NeoDebugJump()<CR>", g:neodbg_keymap_jump)
-    exec printf("amenu NeoDebug.Top\\ frame 						:call NeoDebug('frame 0')<CR>")
-    exec printf("amenu NeoDebug.Callstack\\ up 					:call NeoDebug('up')<CR>")
-    exec printf("amenu NeoDebug.Callstack\\ down 					:call NeoDebug('down')<CR>")
-    exec printf("amenu NeoDebug.-sep2- :")
+    exec printf("amenu NeoDebug.Show\\ callstack%s                     :call NeoDebug('where')<CR>", "")
+    exec printf("amenu NeoDebug.Set\\ next\\ statement\\ (Jump)<tab>%s :call NeoDebugJump()<CR>", g:neodbg_keymap_jump)
+    exec printf("amenu NeoDebug.Top\\ frame %s                         :call NeoDebug('frame 0')<CR>", "")
+    exec printf("amenu NeoDebug.Callstack\\ up %s                      :call NeoDebug('up')<CR>", "")
+    exec printf("amenu NeoDebug.Callstack\\ down %s                    :call NeoDebug('down')<CR>", "")
+    exec printf("amenu NeoDebug.-sep2-%s :", "")
 
-    exec printf("amenu NeoDebug.Print\\ variable<tab>%s		:NeoDebug p <C-R><C-W><CR> ", g:neodbg_keymap_print_variable)
-    exec printf("amenu NeoDebug.Show\\ BreakpointsWindow 				:OpenBreaks<CR>")
-    exec printf("amenu NeoDebug.Show\\ LocalsWindows 					:OpenLocals<CR>")
-    exec printf("amenu NeoDebug.Show\\ args 						:NeoDebug info args<CR>")
-    exec printf("amenu NeoDebug.Quit			 					:NeoDebug q<CR>")
+    exec printf("amenu NeoDebug.Print\\ variable<tab>%s                :NeoDebug p <C-R><C-W><CR> ", g:neodbg_keymap_print_variable)
+    exec printf("amenu NeoDebug.Show\\ BreakpointsWindow %s            :OpenBreaks<CR>", "")
+    exec printf("amenu NeoDebug.Show\\ LocalsWindows %s                :OpenLocals<CR>", "")
+    exec printf("amenu NeoDebug.Show\\ args %s                         :NeoDebug info args<CR>", "")
+    exec printf("amenu NeoDebug.Quit %s                                :NeoDebug q<CR>", "")
 endfunction
 
 function! neodebug#DeleteMenu()
@@ -1784,10 +1784,10 @@ function! neodebug#InstallPopupMenu()
         if !exists('g:neodbg_popup') || g:neodbg_popup != 0
             let s:saved_mousemodel = &mousemodel
             let &mousemodel = 'popup_setpos'
-            an 1.200 PopUp.-SEP3-	<Nop>
-            an 1.210 PopUp.Set\ breakpoint	:Break<CR>
-            an 1.220 PopUp.Clear\ breakpoint	:Clear<CR>
-            an 1.230 PopUp.Evaluate		:Evaluate<CR>
+            an 1.200 PopUp.-SEP3-        <Nop>
+            an 1.210 PopUp.Set\ breakpoint        :Break<CR>
+            an 1.220 PopUp.Clear\ breakpoint      :Clear<CR>
+            an 1.230 PopUp.Evaluate               :Evaluate<CR>
         endif
 endfunction
 
@@ -1812,7 +1812,7 @@ endfunction
 function! neodebug#SetBufDisable()
     " make it not-editable and close the buffer
     " nomod
-    setlocal noma ro cul 
+    setlocal noma ro cul
 endfunction
 
-" vim: set foldmethod=marker 
+" vim: set foldmethod=marker

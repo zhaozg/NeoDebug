@@ -1,5 +1,5 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
-" NeoDebug - Vim plugin for interface to gdb from Vim 
+" NeoDebug - Vim plugin for interface to gdb from Vim
 " Maintainer: scott (cpiger@qq.com)
 " Version: 0.1 2018-05-03  ready to use.
 """""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -146,7 +146,7 @@ let s:neodbg_is_debugging = 0
 let s:neodbg_running = 0
 let s:neodbg_exrc_dir = $HOME.'/.neodebug'
 let s:neodbg_exrc = s:neodbg_exrc_dir . '/neodbg_exrc'
-let s:neodbg_port = 30777 
+let s:neodbg_port = 30777
 
 let s:ismswin = has('win32')
 let s:isunix = has('unix')
@@ -251,9 +251,9 @@ function! NeoDebug(cmd, ...)  " [mode]
     " endif
 
     " echomsg "usercmd[".usercmd."]"
-    if g:neodbg_debugger == 'gdb' && usercmd =~ '^\s*(gdb)' 
+    if g:neodbg_debugger == 'gdb' && usercmd =~ '^\s*(gdb)'
         let usercmd = substitute(usercmd, '^\s*(gdb)\s*', '', '')
-    elseif g:neodbg_debugger == 'gdb' && usercmd =~ '^\s*>\s*' 
+    elseif g:neodbg_debugger == 'gdb' && usercmd =~ '^\s*>\s*'
         let usercmd = substitute(usercmd, '^\s*>\s*', '', '')
         " echomsg "usercmd2[".usercmd."]"
     endif
@@ -268,7 +268,7 @@ function! NeoDebug(cmd, ...)  " [mode]
     endif
 
     " goto thread and show frames
-    " Id   Target Id         Frame 
+    " Id   Target Id         Frame
     " 2    Thread 83608.0x14dd0 0x00000000773c22da in ntdll!RtlInitString () from C:\\windows\\SYSTEM32\tdll.dll
     " 1    Thread 83608.0x1535c factor (n=1, r=0x22fe48) at factor/factor.c:5
     if s:NeoDebugMatch(usercmd, '\v^\s+(\d+)\s+Thread ') && s:neodbg_is_debugging
@@ -345,7 +345,7 @@ function! s:NeoDebugStart(cmd)
                     \ 'exit_cb': function('s:NeoDebugEnd'),
                     \ })
 
-        let s:neodbg_chan = job_getchannel(s:commjob)  
+        let s:neodbg_chan = job_getchannel(s:commjob)
         let commpty = job_info((s:commjob))['tty_out']
     endif
 
@@ -496,7 +496,7 @@ function! s:HandleOutput(chan, msg)
 
     " echomsg "s:neodbg_init_flag".s:neodbg_init_flag
     " to control vim cursor position stay in neodebug console after init
-    " &"set pagination off 
+    " &"set pagination off
     if a:msg =~ 'set pagination off' &&  s:neodbg_init_flag == 1
         let s:start_count = 1
     endif
@@ -580,7 +580,7 @@ function! s:HandleOutput(chan, msg)
                 call neodebug#GotoWatchpointsWindow()
             endif
 
-            if updateinfo_line =~ '^\~"'  
+            if updateinfo_line =~ '^\~"'
                 let updateinfo_line = substitute(updateinfo_line, '\~"\\t', "\~\"\t\t", 'g')
                 let updateinfo_line = substitute(updateinfo_line, ':\\t', ":\t\t", 'g')
                 let updateinfo_line = substitute(updateinfo_line, '\\"', '"', 'g')
@@ -671,7 +671,7 @@ function! s:HandleOutput(chan, msg)
     let debugger_line = a:msg
 
     if debugger_line != '' && s:completer_skip_flag == 0 && s:updateinfo_skip_flag == 0
-        " Handle 
+        " Handle
         if debugger_line =~ '^\(\*stopped\|\^done,new-thread-id=\|\*running\|=thread-selected\)'
             call s:HandleCursor(debugger_line)
         elseif debugger_line =~ '^\^done,bkpt=' || debugger_line =~ '=breakpoint-created,'
@@ -704,11 +704,11 @@ function! s:HandleOutput(chan, msg)
             let s:neodbg_sendcmd_flag = 0
         endif
 
-        if debugger_line =~ '^\~" >"' 
+        if debugger_line =~ '^\~" >"'
             call append(line("$"), strpart(debugger_line, 2, strlen(debugger_line)-3))
-            " elseif debugger_line =~ '^\~"\S\+' 
+            " elseif debugger_line =~ '^\~"\S\+'
 
-        " elseif debugger_line =~ '^\*' 
+        " elseif debugger_line =~ '^\*'
             " call append(line("$"), debugger_line)
 
             "fix win32 gdb D:\\path\\path\\file
@@ -730,11 +730,11 @@ function! s:HandleOutput(chan, msg)
                 let s:append_msg = ''
             endif
 
-        elseif debugger_line =~ '^\~"' 
+        elseif debugger_line =~ '^\~"'
             if debugger_line =~ '^\~"\(Kill the program\|Program exited\|The program is not being run\|The program no longer exists\|Detaching from\|Inferior\)'
                 let s:neodbg_is_debugging = 0
             elseif  debugger_line =~ '^\~"\(Starting program\|Attaching to\)'
-                " ~"Starting program:  \n" 
+                " ~"Starting program:  \n"
                 let index_colon = stridx(debugger_line, ":")
                 let program_name = strpart(debugger_line, index_colon+2, stridx(debugger_line, ' \n', index_colon)-(index_colon+2) )
                 if program_name != ''
@@ -1034,7 +1034,7 @@ function! NeoDebugComplete(findstart, base)
     if a:findstart
 
         let usercmd = getline('.')
-        if g:neodbg_debugger == 'gdb' && usercmd =~ '^\s*(gdb)' 
+        if g:neodbg_debugger == 'gdb' && usercmd =~ '^\s*(gdb)'
             let usercmd = substitute(usercmd, '^\s*(gdb)\s*', '', '')
             let usercmd = substitute(usercmd, '*', '', '') "fixed *pointer
             let usercmd = 'complete ' .  usercmd
@@ -1045,8 +1045,8 @@ function! NeoDebugComplete(findstart, base)
         let output = ch_readraw(s:neodbg_chan)
         let s:completers = []
         while output != g:neodbg_prompt
-            if output =~ '\~"' 
-                let completer = strpart(output, 2, strlen(output)-5) 
+            if output =~ '\~"'
+                let completer = strpart(output, 2, strlen(output)-5)
                 call add(s:completers, completer)
             endif
             let output = ch_readraw(s:neodbg_chan)
@@ -1063,7 +1063,7 @@ function! NeoDebugComplete(findstart, base)
         " find s:completers matching the "a:base"
         let res = []
         for m in (s:completers)
-            if a:base == '' 
+            if a:base == ''
                 return res
             endif
 
@@ -1086,7 +1086,7 @@ function! s:NeoDebugMatch(expr, pat)
 endfunction
 " if the value is a pointer ( var = 0x...), expand it by "NeoDebug p *var"
 " e.g. $11 = (CDBMEnv *) 0x387f6d0
-" e.g.  
+" e.g.
 " (CDBMEnv) $22 = {
 "  m_pTempTables = 0x37c6830,
 "  ...
@@ -1114,10 +1114,10 @@ function! NeoDebugExpandPointerExpr()
         "     m_pEnv = 0x378de60
         "   }, <No data fields>}
 
-        if s:neodbg_match[1][0:0] != '<' 
+        if s:neodbg_match[1][0:0] != '<'
             let cmd = s:neodbg_match[1] . '.' . cmd
         endif
-    endwhile 
+    endwhile
     call NeoDebugSendCommand("p *" . cmd)
     if foldlevel('.') > 0
         " goto beginning of the fold and close it
@@ -1173,7 +1173,7 @@ function! NeoDebugSendCommand(cmd, ...)  " [mode]
         " echomsg "<GDB1>:[".usercmd."][mode:".mode."]"
         let s:neodbg_sendcmd_flag = 0
     else
-        "save commands 
+        "save commands
         if usercmd != s:neodbg_cmd_historys[-1] && usercmd != ''
             " echomsg "<GDB2>:[".usercmd."][mode:".mode."]"
             call add(s:neodbg_cmd_historys, usercmd)
@@ -1473,12 +1473,12 @@ function! s:HandleNewBreakpoint(msg)
         exe 'e '.fname
         exe lnum
     catch /^Vim\%((\a\+)\)\=:E37/
-        " TODO ask 
+        " TODO ask
         silent echohl ModeMsg
         echomsg "No write since last change (add ! to override)"
         silent echohl None
     catch /^Vim\%((\a\+)\)\=:E325/
-        " TODO ask 
+        " TODO ask
         silent echohl ModeMsg
         echomsg "Found a swap file"
         silent echohl None
@@ -1514,7 +1514,7 @@ function! s:HandleBreakpointDelete(msg)
     call neodebug#UpdateBreakpoints()
 endfunction
 
-" TODO 
+" TODO
 function! s:NeoDebug_bpkey(file, line)
     return a:file . ":" . a:line
 endfunction
@@ -1600,4 +1600,4 @@ command!  CloseDisas :call neodebug#CloseDisas()
 command!  CloseExpressions :call neodebug#CloseExpressions()
 command!  CloseWatchs :call neodebug#CloseWatchpoints()
 
-" vim: set foldmethod=marker 
+" vim: set foldmethod=marker
